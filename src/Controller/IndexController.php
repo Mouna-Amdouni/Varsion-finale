@@ -26,7 +26,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class IndexController extends AbstractController
 {
     /**
-     * @Route("/AcceuilAssociation", name="indexx")
+     * @Route("/", name="indexx")
      */
     public function index(UserInterface $user,SpecialiteRepository $specialiteRepository,TopicRepository $topicRepository,EvenementRepository $evenementRepository,ReglesRepository $reglesRepository,UserRepository $userRepository,ActualiteRepository $actualiteRepository,AssociationRepository $associationRepository,OpportuniteRepository $opportuniteRepository): Response
     {
