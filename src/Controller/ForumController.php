@@ -2,8 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Activite;
 use App\Entity\Association;
 use App\Entity\Categorie;
+use App\Entity\Regles;
+use App\Entity\Service;
+use App\Entity\Specialite;
 use App\Entity\User;
 use App\Repository\ActualiteRepository;
 use App\Repository\AssociationRepository;
@@ -369,21 +373,66 @@ $topics=$topicRepository->findAll();
      */
     public function deletet(Topic $topic ){
         $topic = $this->topicRepository->delete($topic);
-        return $this->json(["message"=>"success","value"=>$topic->getDeleted()]);
-    }
-    /**
-     * @Route("/nbSujet",name="deleteT")
+        return $this->redirectToRoute('forumsall',[$topic->getDeleted()])  ;
 
+//        return $this->json(["message"=>"success","value"=>$topic->getDeleted()]);
+    }
+//    /**
+//     * @Route("/nbSujet",name="deleteT")
+//
+//     */
+//    public function nbSujet(){
+//        $em = $this->getDoctrine()->getManager();
+//        $repoUser=$em->getRepository(Topic::class);
+//        $totalT = $repoUser->createQueryBuilder('a')
+//            // Filter by some parameter if you want
+//            ->where('a.isRead = 0 ')
+//            ->select('count(a.id)')
+//            ->getQuery()
+//            ->getSingleScalarResult();
+////        dd($totalT);
+//    }
+
+    /**
+     * @Route("/ttttt/{id}", name="mmmm")
      */
-    public function nbSujet(){
-        $em = $this->getDoctrine()->getManager();
-        $repoUser=$em->getRepository(Topic::class);
-        $totalT = $repoUser->createQueryBuilder('a')
-            // Filter by some parameter if you want
-            ->where('a.isRead = 0 ')
-            ->select('count(a.id)')
-            ->getQuery()
-            ->getSingleScalarResult();
-        dd($totalT);
+    public function delete($id,Request $request, Topic $topic,TopicRepository $topicRepository,Message $message): Response
+    {
+//$t=$topicRepository->find($topic);
+//$m=$t->getMessages();
+        $entityManager = $this->getDoctrine()->getManager();
+        $message= $entityManager->getRepository(Message::class)->find($topic);
+//        dd($message);
+
+        $topic= $entityManager->getRepository(Topic::class)->find($id);
+        $entityManager->remove($message);
+        $entityManager->remove($topic);
+
+        $this->addFlash('success', 'Conversation bien été supprimée.');
+
+
+        $entityManager->flush();
+        return $this->redirectToRoute('adminchats');
+//dd($t->getMessages());
+    }
+
+    /**
+     * @Route("/deleteeService/{id}",name="Delete__service")
+     */
+    public function deleteS($id)
+    {
+//  $op=$opportuniteRepository->find($id);
+
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $service= $entityManager->getRepository(Service::class)->find($id);
+        $entityManager->remove($service);
+        $this->addFlash('success', 'Service bien été supprimé.');
+
+
+        $entityManager->flush();
+        return $this->redirectToRoute('service_index');
+
+
     }
 }

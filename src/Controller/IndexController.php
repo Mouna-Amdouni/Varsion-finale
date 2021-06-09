@@ -16,18 +16,21 @@ use App\Repository\EvenementRepository;
 use App\Repository\OpportuniteRepository;
 use App\Repository\ReglesRepository;
 use App\Repository\SpecialiteRepository;
+use App\Repository\TopicRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class IndexController extends AbstractController
 {
     /**
      * @Route("/", name="indexx")
      */
-    public function index(SpecialiteRepository $specialiteRepository,EvenementRepository $evenementRepository,ReglesRepository $reglesRepository,UserRepository $userRepository,ActualiteRepository $actualiteRepository,AssociationRepository $associationRepository,OpportuniteRepository $opportuniteRepository): Response
+    public function index(UserInterface $user,SpecialiteRepository $specialiteRepository,TopicRepository $topicRepository,EvenementRepository $evenementRepository,ReglesRepository $reglesRepository,UserRepository $userRepository,ActualiteRepository $actualiteRepository,AssociationRepository $associationRepository,OpportuniteRepository $opportuniteRepository): Response
     {
+//        dd($user);
         $em = $this->getDoctrine()->getManager();
         $repoUser=$em->getRepository(User::class);
         $totalU = $repoUser->createQueryBuilder('a')
@@ -105,7 +108,8 @@ class IndexController extends AbstractController
         $repott=$em->getRepository(Topic::class);
         $totalT = $repott->createQueryBuilder('a')
             // Filter by some parameter if you want
-            ->where('a.isRead = 0 ')
+            ->where('a.isRead = 0 and a.idConsultant = :u' )
+            ->setParameter('u', $user)
             ->select('count(a.id)')
             ->getQuery()
             ->getSingleScalarResult();
@@ -158,6 +162,7 @@ class IndexController extends AbstractController
             'ops'=>$totalOPs,
             'evs'=>$totalEvs,
             'acv'=>$totalACT,
+            'top'=>$topicRepository->findAll(),
             'evenementsAll'=>$evenementRepository->ActualiteMax3(),
             'associationsAll'=>$associationRepository->AssociationMaxQuatre(),
             'opportunitesAll'=>$opportuniteRepository->OpportunitesMaxQuatre(),

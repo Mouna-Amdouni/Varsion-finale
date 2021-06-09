@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Activite;
 
+use App\Entity\Association;
 use App\Entity\Topic;
 use App\Entity\User;
 use App\Form\ActiviteType;
@@ -157,38 +158,36 @@ class ActiviteController extends AbstractController
      */
     public function resoudre($id1,UserRepository $userRepository,AssociationRepository $associationRepository,ActiviteRepository $activiteRepository,$id,Request $request, UserInterface $user,PublicationRepository $publicationRepository): Response
     {
-
-
         $activite=new Activite();
-  $pub=$publicationRepository->find($id);
+        $pub=$publicationRepository->find($id);
 
-$ass=$associationRepository->find($user);
+        $ass=$associationRepository->find($user);
         $u=$userRepository->find($user);
         $a=$u->getAssociations()->getValues();
         $n=$u->getAssociations();
 
-      $form = $this->createFormBuilder($activite)
-          ->add('association',  ChoiceType::class, [
-//              'choices'=>array($ass->getTitre() =>$a,
-
-              'choices'=>array($a,
-
-              ),
-              'label' => "Entrez la description detaillé de cette activité   "
-          ])
-          ->add('description', TextareaType::class, [
-              'attr' => [
-                  'class' => 'form-control',
-                  'rows' => "2",
-                  'cols' => "45"
-              ],
-              'label' => "Entrez la description detaillé de cette activité   "
-          ])
+        $form = $this->createFormBuilder($activite)
+            ->add('association',  null, [
 
 
-          ->add('video', FileType::class, ['label' => 'Chargez votre video'])
-          ->getForm();
-      $form->handleRequest($request);
+                'choices'=>($a
+
+                ),
+                'label' => "Choisissez le titre de votre association  "
+            ])
+            ->add('description', TextareaType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                    'rows' => "2",
+                    'cols' => "45"
+                ],
+                'label' => "Entrez la description detaillé de cette activité   "
+            ])
+
+
+            ->add('video', FileType::class, ['label' => 'Chargez votre video'])
+            ->getForm();
+        $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
 
@@ -217,7 +216,7 @@ $ass=$associationRepository->find($user);
 
             $this->addFlash('success', 'activité ajouté .');
 
-         
+
             return $this->redirectToRoute('post');
 
 
@@ -227,7 +226,7 @@ $ass=$associationRepository->find($user);
             'activiteform'=>$form->createView(),
 //'activites'=>$activiteRepository->find($user),
 //        'ass'=>$associationRepository->getAssociations($id1),
-        'id1'=>$id1,
+            'id1'=>$id1,
             'activite' => $activite,
 
         ]);

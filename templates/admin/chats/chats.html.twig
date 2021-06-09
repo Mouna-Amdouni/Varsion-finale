@@ -72,10 +72,26 @@
                                                 {% else %}
                                                     <a class="btn btn-warning activate-link" href="{{ path('chat_changeV', {'id': c.id}) }}"> <i class="fa fa-times"></i></a>
                                                 {% endif %}
-    <a  href="{{ path('topic', {'id': c.id}) }}"> show</a>
+    <a  href="{{ path('topic', {'id': c.id}) }}"> Consulter</a>
 
 </td>
-                                            <td><a href="{{ path('deleteT', {'id': c.id}) }}" class="btn btn-danger disable-btn del-link" type="submit" ><i class="fa fa-trash"></i></a></td>
+                                            <td>
+
+                                                <form method="post" action="{{ path('mmmm', {'id': c.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ c.id) }}">
+                                                    <button class="btn">Delete</button>
+                                                </form>
+
+
+                                                {#                                                <form method="post" action="{{ path('Delete_Chat', {'id': c.id}) }}" onsubmit="return confirm('etes vous sure de supprimer cette conversation?');">#}
+{#                                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ c.id) }}">#}
+{#                                                    <button class="btn btn-danger"><i class="fa fa-trash"></i></button>#}
+
+
+{#                                                </form>#}
+{#                                                <a href="{{ path('Delete_Chat', {'id': c.id}) }}" class="btn btn-danger" type="submit" ><i class="fa fa-trash"></i></a>#}
+
+                                            </td>
                                         </tr>
                                     {% endfor %}
                                     </tbody>

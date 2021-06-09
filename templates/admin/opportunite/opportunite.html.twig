@@ -73,8 +73,13 @@
                                             {# <td><a class="btn btn-primary" href="{{ path('association_edit',{"id":opportunite.id}) }}"><i class="fa fa-edit"></i></a></td> #}
 
                                             {# <td><a href="{{ path('dd', {'id': opportunite.id}) }}" class="btn btn-danger disable-btn del-link" type="submit" ><i class="fa fa-trash"></i></a></td> #}
-                                            <td><a href="{{ path('opAdminDelete',{"id":opportunite.id}) }}"
-                                                   class="btn btn-danger" type="submit"><i class="fa fa-trash"></i></a>
+                                            <td>
+                                                <form method="post" action="{{ path('opp_delete', {'id': opportunite.id}) }}" onsubmit="return confirm('etes vous sure de supprimer cette opportunité?');">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ opportunite.id) }}">
+                                                    <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+
+
+                                                </form>
                                             </td>
 
                                         </tr>

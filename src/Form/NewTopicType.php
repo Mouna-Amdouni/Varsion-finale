@@ -42,12 +42,12 @@ class NewTopicType extends AbstractType
                         'cols' => "45"
                     ],
                     'required' => true,
-                    'label' => 'ecrivez un message'
+                    'label' => 'Ecrivez un message'
                 ])
 
                
 
-                ->add('Create_Message', SubmitType::class, [
+                ->add('Envoyer', SubmitType::class, [
                     'attr' => [
                         'class' => 'btn btn-primary'
                     ]

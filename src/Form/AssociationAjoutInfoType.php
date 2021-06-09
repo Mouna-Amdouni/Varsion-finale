@@ -43,13 +43,13 @@ class AssociationAjoutInfoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-
-            ->add('budget',
-                MoneyType::class, [
-                    'required' => true,
-                    'label' => "ajouter le budget de votre association",
-                    'attr' => ['class' => 'form-control']
-                ])
+//
+//            ->add('budget',
+//                MoneyType::class, [
+//                    'required' => true,
+//                    'label' => "ajouter le budget de votre association",
+//                    'attr' => ['class' => 'form-control']
+//                ])
             ->add('domaineAssociation',
                 TextType::class, [
                     'required' => true,
@@ -58,26 +58,26 @@ class AssociationAjoutInfoType extends AbstractType
                 ])
             ->add('siteWeb',
                 TextType::class, [
-                    'required' => true,
-                    'label' => "ajouter votre site web",
+                    'required' => false,
+                    'label' => "Tapez votre site web",
                     'attr' => ['class' => 'form-control']
                 ])
             ->add('facebook',
                 TextType::class, [
-                    'required' => true,
-                    'label' => "ajouter votre lien facebook",
+                    'required' => false,
+                    'label' => "Tapez votre lien facebook",
                     'attr' => ['class' => 'form-control']
                 ])
             ->add('instagram',
                 TextType::class, [
-                    'required' => true,
-                    'label' => "ajouter votre lien instagram",
+                    'required' => false,
+                    'label' => "Tapez votre lien instagram",
                     'attr' => ['class' => 'form-control']
                 ])
             ->add('twitter',
                 TextType::class, [
-                    'required' => true,
-                    'label' => "ajouter votre lien twitter",
+                    'required' => false,
+                    'label' => "Tapez votre lien twitter",
                     'attr' => ['class' => 'form-control']
                 ])
             ->add('dateFondation',

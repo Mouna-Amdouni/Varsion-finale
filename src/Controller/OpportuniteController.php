@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Association;
+use App\Entity\Evenement;
 use App\Entity\Opportunite;
 use App\Entity\User;
 use App\Form\OpportuniteType;
@@ -317,5 +318,17 @@ $ass=$associationRepository->find($id);
         $opportunite = $opportuniteRepository->changeValidite($opportunite);
         return $this->json(["message"=>"success","value"=>$opportunite->getIsValid()]);
     }
+    /**
+     * @Route("/{id}", name="opp_delete", methods={"POST"})
+     */
+    public function delete(Request $request, Opportunite $opportunite): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$opportunite->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($opportunite);
+            $entityManager->flush();
+        }
 
+        return $this->redirectToRoute('opportunitesAdmin');
+    }
     }

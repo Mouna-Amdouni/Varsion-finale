@@ -1862,11 +1862,16 @@ permet aux jeunes  d'avoir des chances egales a travers la mise en ligne de leur
                     <div class="reloaded-divs">
 
                         <div class="alert alert-primary  show" role="alert">
+{#                         {% for t in top %}#}
+{#                             {% if app.user.id == t.idConsultant.id and t.isRead == 0 %}#}
                             <strong>{{topics}}</strong> sujet(s) non repondus!
                             <a style="color: black;margin-right: 5px" href="{{ path('forumsall') }}" >Voir les conversations</a>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
+
                             </button>
+{#                             {% endif %}#}
+{#{% endfor %}#}
                         </div>
                     </div>
                 </div>

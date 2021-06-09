@@ -119,8 +119,14 @@
                                 <p style="font-weight : bold "><a  href="{{ path('topic', {'id': t.id}) }}">{{ t.name }}</a> </p>
                                 </br>
                                 </br>
-                                <a style=" background-color: red ; color: white; padding: 5px 10px;text-align: center;text-decoration: none;display: inline-block;" href="{{ path('deleteT', {'id': t.id}) }}">Supprimer</a></span>
-                                <a style=" background-color: limegreen ; color: white; padding: 5px 10px;text-align: center;text-decoration: none;display: inline-block;" href="{{ path('topic', {'id': t.id}) }}">Répondre</a>
+{#                                <a style=" background-color: red ; color: white; padding: 5px 10px;text-align: center;text-decoration: none;display: inline-block;" href="{{ path('deleteT', {'id': t.id}) }}">Supprimer</a></span>#}
+                                <form  method="post" action="{{ path('deleteT', {'id': t.id}) }}" onsubmit="return confirm('etes vous sure de supprimer cette conversation ?');">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ t.id) }}">
+                                    <button style=" background-color: red ; color: white; padding: 5px 10px;text-align: center;text-decoration: none;display: inline-block;">supprimer</button>
+
+                                    <a style=" background-color: limegreen ; color: white; padding: 5px 10px;text-align: center;text-decoration: none;display: inline-block;" href="{{ path('topic', {'id': t.id}) }}">Répondre</a>
+
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -138,8 +144,22 @@
                                 <p><a href="{{ path('topic', {'id': t.id}) }}">{{ t.name }}</a> </p>
                                 </br>
                                 </br>
-                                <a style="background-color: red ; color: white; padding: 5px 10px;text-align: center;text-decoration: none;display: inline-block;" href="{{ path('deleteT', {'id': t.id}) }}">Supprimer</a></span>
-                                <a style=" background-color: limegreen ; color: white; padding: 5px 10px;text-align: center;text-decoration: none;display: inline-block;" href="{{ path('topic', {'id': t.id}) }}">Répondre</a>
+{#                                <a style="background-color: red ; color: white; padding: 5px 10px;text-align: center;text-decoration: none;display: inline-block;" href="{{ path('deleteT', {'id': t.id}) }}">Supprimer</a></span>#}
+{#                                <form method="post" action="{{ path('deleteT', {'id': t.id}) }}" onsubmit="return confirm('etes vous sure de supprimer cette conversation ?');">#}
+{#                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ t.id) }}">#}
+{#                                    <button class="btn btn-danger">supprimer</button>#}
+
+
+{#                                </form>#}
+{#                                <a style=" background-color: limegreen ; color: white; padding: 5px 10px;text-align: center;text-decoration: none;display: inline-block;" href="{{ path('topic', {'id': t.id}) }}">Répondre</a>#}
+{#                          #}
+                                <form  method="post" action="{{ path('deleteT', {'id': t.id}) }}" onsubmit="return confirm('etes vous sure de supprimer cette conversation ?');">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ t.id) }}">
+                                    <button style=" background-color: red ; color: white; padding: 5px 10px;text-align: center;text-decoration: none;display: inline-block;">supprimer</button>
+
+                                    <a style=" background-color: limegreen ; color: white; padding: 5px 10px;text-align: center;text-decoration: none;display: inline-block;" href="{{ path('topic', {'id': t.id}) }}">Répondre</a>
+
+                                </form>
                             </div>
                         </div>
                     </div>
