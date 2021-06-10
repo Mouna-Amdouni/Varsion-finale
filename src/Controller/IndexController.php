@@ -18,6 +18,7 @@ use App\Repository\ReglesRepository;
 use App\Repository\SpecialiteRepository;
 use App\Repository\TopicRepository;
 use App\Repository\UserRepository;
+use ContainerCTHr7m3\getUserInterface2Service;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -28,9 +29,13 @@ class IndexController extends AbstractController
     /**
      * @Route("/", name="indexx")
      */
-    public function index(UserInterface $user,SpecialiteRepository $specialiteRepository,TopicRepository $topicRepository,EvenementRepository $evenementRepository,ReglesRepository $reglesRepository,UserRepository $userRepository,ActualiteRepository $actualiteRepository,AssociationRepository $associationRepository,OpportuniteRepository $opportuniteRepository): Response
+    public function index(SpecialiteRepository $specialiteRepository,TopicRepository $topicRepository,EvenementRepository $evenementRepository,ReglesRepository $reglesRepository,UserRepository $userRepository,ActualiteRepository $actualiteRepository,AssociationRepository $associationRepository,OpportuniteRepository $opportuniteRepository): Response
     {
-//        dd($user);
+//        dd(UserInterface::class,$this->getUser());
+        /** UserInterface $user
+        */
+
+//        $user=new UserInterface();
         $em = $this->getDoctrine()->getManager();
         $repoUser=$em->getRepository(User::class);
         $totalU = $repoUser->createQueryBuilder('a')
@@ -109,7 +114,7 @@ class IndexController extends AbstractController
         $totalT = $repott->createQueryBuilder('a')
             // Filter by some parameter if you want
             ->where('a.isRead = 0 and a.idConsultant = :u' )
-            ->setParameter('u', $user)
+            ->setParameter('u', UserInterface::class,$this->getUser())
             ->select('count(a.id)')
             ->getQuery()
             ->getSingleScalarResult();
