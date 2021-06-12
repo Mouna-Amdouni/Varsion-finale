@@ -1669,7 +1669,7 @@
     <section id="slider" >
         <ul class="slider-wrapper">
             <li class="current-slide">
-                <img  src="{{ asset('img/l1.jpg')}}" title="" alt="">
+                <img src="{{ asset('img/a2.jpg')}}" title="" alt="">
 
                 <div class="caption">
                     <h2 class="slider-title">L'objectif de notre site</h2>
@@ -1678,7 +1678,7 @@
             </li>
 
             <li>
-                <img  src="{{ asset('img/l2.png')}}" title="" alt="">
+                <img width="100%" src="{{ asset('img/a7.jpg')}}" title="" alt="">
 
                 <div class="caption">
                     <h2 class="slider-title">C'est quoi une association</h2>
@@ -1687,7 +1687,7 @@
             </li>
 
             <li>
-                <img  src="{{ asset('img/l5.jpg')}}" title="" alt="">
+                <img width="100%" src="{{ asset('img/a11.jpg')}}" title="" alt="">
 
                 <div class="caption">
                     <h2 class="slider-title">Associations pour tous </h2>
@@ -1700,7 +1700,7 @@ permet a ses utilisateurs de poser leurs problemes en vue de les resoudres<br/>
             </li>
 
             <li>
-                <img  src="{{ asset('img/l6.jpg')}}" title="" alt="">
+                <img width="100%"  src="{{ asset('img/a10.png')}}" title="" alt="">
 
                 <div class="caption">
                     <h2 class="slider-title">Associations pour tous ça veut dire un sourire pour tous </h2>
@@ -2245,7 +2245,7 @@ permet aux jeunes  d'avoir des chances egales a travers la mise en ligne de leur
     <p style="margin-top: 20px" id="h1" data-shadow='evenements recentes'>evenements recentes</p>
 
     <div class="row">
-    {% for e in evenementsAll %}
+    {% for e in evenementsAll | filter(evenementsAll => evenementsAll.isValid) |sort|reverse %}
     <div style="width: auto;margin: 10px;" class="event">
         <div style="width: 80px;height: auto" class="event--img">
             <a href="{{ asset('uploads/images/'  ~ e.image) }}" onclick="if (!lightboxLoaded) return false" class="w-fancybox">

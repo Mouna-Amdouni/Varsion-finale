@@ -35,7 +35,7 @@ class IndexController extends AbstractController
         /** UserInterface $user
         */
 
-//        $user=new UserInterface();
+        $user=$this->getUser();
         $em = $this->getDoctrine()->getManager();
         $repoUser=$em->getRepository(User::class);
         $totalU = $repoUser->createQueryBuilder('a')
@@ -114,7 +114,7 @@ class IndexController extends AbstractController
         $totalT = $repott->createQueryBuilder('a')
             // Filter by some parameter if you want
             ->where('a.isRead = 0 and a.idConsultant = :u' )
-            ->setParameter('u', UserInterface::class,$this->getUser())
+            ->setParameter('u', $user)
             ->select('count(a.id)')
             ->getQuery()
             ->getSingleScalarResult();

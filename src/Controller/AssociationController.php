@@ -5,6 +5,7 @@ use App\Form\AssociationAjoutInfoType;
 use App\Form\AssociationEditFormType;
 use App\Form\AssociationEditPAFormType;
 use App\Repository\ActualiteRepository;
+use App\Repository\EvenementRepository;
 use App\Repository\OpportuniteRepository;
 use App\Services\UploadHelper;
 
@@ -783,11 +784,13 @@ $this->entityManager->persist($association);
      * @Route("/Associ/{id}", name="UserAssoci", methods={"GET"})
 
      */
-    public function UserAssociation(ActualiteRepository $actualiteRepository,$id,Association $association=null,AssociationRepository $associationRepository,OpportuniteRepository $opportuniteRepository): Response
+    public function UserAssociation(EvenementRepository $evenementRepository,ActualiteRepository $actualiteRepository,$id,Association $association=null,AssociationRepository $associationRepository,OpportuniteRepository $opportuniteRepository): Response
     {
 
         return $this->render('Visiteur/aassociation2parid.html.twig',['id'=>$association->getId()
         ,'opportunites'=>$opportuniteRepository->OpportuniteMaxQuatre(),
+            'events'=>$evenementRepository->ActualiteMax3()
+            ,
             'actualites'=>$actualiteRepository->findAll()
             ,
             'ass'=>$association
