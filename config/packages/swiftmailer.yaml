@@ -2,7 +2,7 @@ swiftmailer:
     transport:        gmail
     username:         mounaamdouni213@gmail.com
     password:         Fati.1999
-    host:             localhost
+    host:             smtp
     port:             465
     encryption:       ssl
     auth-mode:        login

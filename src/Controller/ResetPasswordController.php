@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Repository\UserRepository;
 use App\Form\ChangePasswordFormType;
 use App\Form\ResetPasswordRequestFormType;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -38,16 +39,32 @@ class ResetPasswordController extends AbstractController
      *
      * @Route("", name="app_forgot_password_request")
      */
-    public function request(Request $request, MailerInterface $mailer): Response
+    public function request(Request $request,\Swift_Mailer $mailer,UserRepository $UserRepository): Response
     {
-        $form = $this->createForm(ResetPasswordRequestFormType::class);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            return $this->processSendingPasswordResetEmail(
-                $form->get('email')->getData(),
-                $mailer
-            );
+
+
+
+        /*$form = $this->createForm(ResetPasswordRequestFormType::class);
+        $form->handleRequest($request);*/
+
+        $user=$UserRepository->findOneBy(['email'=>$request->get('reset_password_request_form')['email']]);
+                $body =  $this->renderView('reset_password/email.html.twig',
+                    array('user'=>$user,'url'=>'http://localhost:8000/fr/reset-password/{{ user. }}'
+
+                    )
+                );
+        if ($request->isMethod('post')) {
+            $message = (new \Swift_Message('Vous avez un email'))
+                ->setFrom('bouhajja.khaled2@gmail.com')
+                ->setTo('mounaamdouni213@gmail.com')
+                ->setBody(
+                    'salut',
+                    'text/plain'
+                )
+            ;
+
+            $mailer->send($message);
         }
 
         return $this->render('reset_password/request.html.twig', [

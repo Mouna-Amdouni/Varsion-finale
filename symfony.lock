@@ -205,6 +205,9 @@
     "swiftmailer/swiftmailer": {
         "version": "v6.2.7"
     },
+    "symfony/amqp-messenger": {
+        "version": "v5.1.11"
+    },
     "symfony/apache-pack": {
         "version": "1.0",
         "recipe": {
@@ -264,6 +267,9 @@
     },
     "symfony/doctrine-bridge": {
         "version": "v5.1.0"
+    },
+    "symfony/doctrine-messenger": {
+        "version": "v5.1.11"
     },
     "symfony/dotenv": {
         "version": "v5.1.0"
@@ -365,6 +371,18 @@
             "ref": "fadbfe33303a76e25cb63401050439aa9b1a9c7f"
         }
     },
+    "symfony/messenger": {
+        "version": "4.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.3",
+            "ref": "e9a414b113ceadbf4e52abe37bf8f1b443f06ccb"
+        },
+        "files": [
+            "./config/packages/messenger.yaml"
+        ]
+    },
     "symfony/mime": {
         "version": "v5.1.0"
     },
@@ -424,6 +442,9 @@
     },
     "symfony/property-info": {
         "version": "v5.1.0"
+    },
+    "symfony/redis-messenger": {
+        "version": "v5.1.11"
     },
     "symfony/routing": {
         "version": "5.1",
